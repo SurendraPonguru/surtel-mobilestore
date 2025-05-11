@@ -1,4 +1,3 @@
-
 export interface Product {
   id: number;
   title: string;
@@ -169,6 +168,159 @@ export const products: Product[] = [
       count: 329
     },
     featured: true
+  },
+  {
+    id: 13,
+    title: "Premium Smartphone Pro",
+    price: 899.99,
+    description: "The latest smartphone with an edge-to-edge display, powerful camera system, long battery life, and blazing-fast processor. Perfect for photography, gaming, and productivity.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.9,
+      count: 487
+    },
+    featured: true
+  },
+  {
+    id: 14,
+    title: "Ultra-thin Laptop",
+    price: 1299.99,
+    description: "Professional-grade laptop featuring a stunning display, all-day battery life, and powerful performance in an incredibly thin and light package.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.8,
+      count: 352
+    },
+    featured: true
+  },
+  {
+    id: 15,
+    title: "Wireless Noise-Cancelling Headphones",
+    price: 249.95,
+    description: "Premium wireless headphones with industry-leading noise cancellation, incredible sound quality, and comfortable design for all-day listening.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.7,
+      count: 298
+    },
+    onSale: true,
+    discount: 15
+  },
+  {
+    id: 16,
+    title: "Smart LED TV - 55 inch",
+    price: 649.99,
+    description: "4K Ultra HD Smart TV with vibrant colors, crystal clear picture quality, and built-in streaming services for an immersive entertainment experience.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1593784991095-a205069533cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.6,
+      count: 214
+    }
+  },
+  {
+    id: 17,
+    title: "Robot Vacuum Cleaner",
+    price: 299.95,
+    description: "Smart robot vacuum with advanced mapping, powerful suction, and app control to keep your floors clean without lifting a finger.",
+    category: "household",
+    image: "https://images.unsplash.com/photo-1629672845350-ecbaefe5de3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.5,
+      count: 176
+    },
+    onSale: true,
+    discount: 20
+  },
+  {
+    id: 18,
+    title: "Smart Coffee Maker",
+    price: 129.99,
+    description: "WiFi-enabled coffee maker that lets you brew the perfect cup from your smartphone. Schedule brewing times and customize your coffee strength.",
+    category: "household",
+    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.4,
+      count: 142
+    }
+  },
+  {
+    id: 19,
+    title: "Tablet Pro with Stylus",
+    price: 549.99,
+    description: "Powerful tablet with a high-resolution display, responsive stylus support, and all-day battery life for creative professionals and students.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.7,
+      count: 231
+    }
+  },
+  {
+    id: 20,
+    title: "Smart Home Security Camera",
+    price: 89.99,
+    description: "HD security camera with night vision, motion detection alerts, and two-way audio. Monitor your home from anywhere using the smartphone app.",
+    category: "household",
+    image: "https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.5,
+      count: 187
+    }
+  },
+  {
+    id: 21,
+    title: "Ergonomic Office Chair",
+    price: 249.95,
+    description: "Premium office chair with adjustable lumbar support, breathable mesh back, and customizable settings for all-day comfort while working.",
+    category: "household",
+    image: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.6,
+      count: 193
+    }
+  },
+  {
+    id: 22,
+    title: "Gaming Console Pro",
+    price: 499.99,
+    description: "Next-generation gaming console delivering stunning graphics, lightning-fast load times, and an extensive library of games for immersive entertainment.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.9,
+      count: 432
+    },
+    featured: true
+  },
+  {
+    id: 23,
+    title: "Smart Fitness Watch",
+    price: 199.95,
+    description: "Advanced fitness tracker with heart rate monitoring, GPS, workout tracking, and smartphone notifications to help you stay connected and reach your fitness goals.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.7,
+      count: 287
+    },
+    onSale: true,
+    discount: 10
+  },
+  {
+    id: 24,
+    title: "Air Purifier",
+    price: 179.99,
+    description: "HEPA air purifier that removes 99.97% of allergens, dust, and pollutants for cleaner, fresher air in your home. Ideal for allergies and asthma sufferers.",
+    category: "household",
+    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: {
+      rate: 4.6,
+      count: 163
+    }
   }
 ];
 
@@ -178,6 +330,7 @@ export const categories = [
   { id: "clothing", name: "Clothing" },
   { id: "electronics", name: "Electronics" },
   { id: "home", name: "Home & Decor" },
+  { id: "household", name: "Household" },
   { id: "jewelry", name: "Jewelry" },
   { id: "accessories", name: "Accessories" }
 ];
