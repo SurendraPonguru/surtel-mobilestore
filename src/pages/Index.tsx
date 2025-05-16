@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Zap, Package, Home as HomeIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,10 +10,11 @@ import CategoryBrowser from "@/components/CategoryBrowser";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import OnSaleProducts from "@/components/OnSaleProducts";
 import CommandSearch from "@/components/CommandSearch";
+import DynamicProductFilter from "@/components/DynamicProductFilter";
 
 const Index = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [activeSection, setActiveSection] = useState("featured");
 
   useEffect(() => {
     // Simulate loading
@@ -36,8 +36,24 @@ const Index = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
+              <motion.span 
+                className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+              >
+                Welcome to our store
+              </motion.span>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl xl:text-6xl">
-                Discover <span className="text-primary">Beyond</span> <br />
+                Discover <span className="text-primary relative">
+                  Beyond
+                  <motion.span 
+                    className="absolute -bottom-1 left-0 w-full h-1 bg-primary/50 rounded"
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
+                  />
+                </span> <br />
                 Ordinary Shopping
               </h1>
               <p className="text-lg text-muted-foreground max-w-md">
@@ -45,10 +61,15 @@ const Index = () => {
                 in our reimagined digital space.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button asChild size="lg" className="sm:w-auto group">
+                <Button asChild size="lg" className="sm:w-auto group relative overflow-hidden">
                   <Link to="/products">
-                    Explore Products
-                    <ShoppingBag className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <motion.span
+                      className="absolute inset-0 bg-primary/20"
+                      initial={{ x: "-100%" }}
+                      animate={{ x: "100%" }}
+                      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    />
+                    <span className="relative">Explore Products</span>
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="sm:w-auto">
@@ -139,7 +160,7 @@ const Index = () => {
               </div>
               
               {/* Decorative elements */}
-              <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.08),transparent_55%)]" />
+              <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(var(--primary),0.12),transparent_55%)]" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-3/4 h-3/4 rounded-full blur-3xl bg-primary/10 animate-pulse" />
             </motion.div>
           </div>
@@ -163,16 +184,50 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Dynamic Product Filter Section */}
+      <section className="py-12 bg-muted/20">
+        <div className="container">
+          <motion.div 
+            className="mb-8 flex flex-wrap gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {[
+              { id: 'featured', label: 'Featured' },
+              { id: 'sale', label: 'On Sale' },
+              { id: 'all', label: 'Browse All' },
+            ].map((section) => (
+              <Button
+                key={section.id}
+                variant={activeSection === section.id ? "default" : "outline"}
+                onClick={() => setActiveSection(section.id)}
+                className="min-w-[100px]"
+              >
+                {section.label}
+              </Button>
+            ))}
+          </motion.div>
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSection}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <DynamicProductFilter />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
       {/* Animated Categories Section */}
       <section className="py-16 bg-muted/30">
         <div className="container">
           <CategoryBrowser />
         </div>
-      </section>
-
-      {/* On Sale Products */}
-      <section className="py-16">
-        <OnSaleProducts />
       </section>
 
       {/* Shopping Experience Highlights */}
@@ -197,32 +252,55 @@ const Index = () => {
                 title: "Interactive Shopping",
                 description: "Explore products in a new dimension with our interactive showcase",
                 icon: "🔍",
+                color: "from-blue-500/20 to-blue-600/20",
+                border: "border-blue-500/30",
               },
               {
                 title: "Smart Filters",
                 description: "Find exactly what you need with our intuitive filtering system",
                 icon: "🧠",
+                color: "from-purple-500/20 to-purple-600/20",
+                border: "border-purple-500/30",
               },
               {
                 title: "Exclusive Deals",
                 description: "Get access to members-only discounts and early bird offers",
                 icon: "🏷️",
+                color: "from-green-500/20 to-green-600/20",
+                border: "border-green-500/30",
               },
               {
                 title: "Seamless Experience",
                 description: "Enjoy a smooth shopping journey from browsing to checkout",
                 icon: "✨",
+                color: "from-amber-500/20 to-amber-600/20",
+                border: "border-amber-500/30",
               },
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="bg-card border rounded-lg p-6 text-center"
+                className={`bg-gradient-to-br ${item.color} border ${item.border} rounded-lg p-6 text-center`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-50px" }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
+                <motion.div 
+                  className="text-4xl mb-4"
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, 0, -5, 0],
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    repeat: Infinity, 
+                    repeatType: "reverse",
+                    delay: index * 0.5
+                  }}
+                >
+                  {item.icon}
+                </motion.div>
                 <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-muted-foreground">{item.description}</p>
               </motion.div>
