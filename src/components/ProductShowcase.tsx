@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import { getFeaturedProducts, Product } from "@/data/products";
-import { useEmblaCarousel } from "embla-carousel-react";
+import useEmblaCarousel from "embla-carousel-react";
 
 const ProductShowcase = () => {
   const navigate = useNavigate();
