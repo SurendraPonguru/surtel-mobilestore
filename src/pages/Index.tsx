@@ -1,11 +1,16 @@
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Zap, Package, Home as HomeIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { categories } from "@/data/products";
+import ProductShowcase from "@/components/ProductShowcase";
+import CategoryBrowser from "@/components/CategoryBrowser";
+import FeaturedProducts from "@/components/FeaturedProducts";
+import OnSaleProducts from "@/components/OnSaleProducts";
+import CommandSearch from "@/components/CommandSearch";
 
 const Index = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -49,6 +54,9 @@ const Index = () => {
                 <Button asChild size="lg" variant="outline" className="sm:w-auto">
                   <Link to="/products?category=sale">View Sale</Link>
                 </Button>
+              </div>
+              <div className="pt-4">
+                <CommandSearch />
               </div>
             </motion.div>
             
@@ -138,8 +146,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Animated Categories Section */}
-      <section className="py-16 bg-muted/30">
+      {/* Interactive Product Showcase Section */}
+      <section className="py-12 bg-background">
         <div className="container">
           <motion.div 
             className="text-center mb-10"
@@ -147,74 +155,78 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold">Browse Categories</h2>
-            <p className="text-muted-foreground mt-2">Explore our unique collection of products</p>
+            <h2 className="text-3xl font-bold">Featured Products</h2>
+            <p className="text-muted-foreground mt-2">Discover our best selections</p>
           </motion.div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {categories.map((category, index) => (
-              <motion.div 
-                key={category.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Link 
-                  to={`/products?category=${category.id}`}
-                  className="block"
-                  onMouseEnter={() => setActiveCategory(category.id)}
-                  onMouseLeave={() => setActiveCategory(null)}
-                >
-                  <Card className={`transition-all h-full overflow-hidden ${activeCategory === category.id ? 'ring-2 ring-primary' : ''}`}>
-                    <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-                      <div className={`p-3 rounded-full ${
-                        category.id === 'electronics' ? 'bg-blue-100 text-blue-600' :
-                        category.id === 'jewelery' ? 'bg-purple-100 text-purple-600' :
-                        category.id === "men's clothing" ? 'bg-green-100 text-green-600' :
-                        category.id === "women's clothing" ? 'bg-pink-100 text-pink-600' :
-                        category.id === "sale" ? 'bg-red-100 text-red-600' :
-                        'bg-orange-100 text-orange-600'
-                      }`}>
-                        {category.id === 'electronics' ? <Zap className="h-6 w-6" /> :
-                         category.id === 'household' ? <HomeIcon className="h-6 w-6" /> :
-                         <Package className="h-6 w-6" />}
-                      </div>
-                      <div>
-                        <h3 className="font-medium">{category.name}</h3>
-                        <p className="text-sm text-muted-foreground mt-1">Explore Items</p>
-                      </div>
-                      
-                      <motion.div 
-                        className="w-full h-1 bg-primary/0"
-                        animate={{ 
-                          scaleX: activeCategory === category.id ? 1 : 0,
-                          backgroundColor: activeCategory === category.id ? 'hsl(var(--primary))' : 'transparent'
-                        }}
-                        initial={{ scaleX: 0 }}
-                        transition={{ duration: 0.3 }}
-                        style={{ originX: 0 }}
-                      />
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+          <ProductShowcase />
         </div>
       </section>
 
-      {/* Featured Products Preview */}
+      {/* Animated Categories Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container">
+          <CategoryBrowser />
+        </div>
+      </section>
+
+      {/* On Sale Products */}
       <section className="py-16">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Featured Collection</div>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Trending Products</h2>
-              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed">
-                Discover our most popular items that everyone is talking about
-              </p>
-            </div>
+        <OnSaleProducts />
+      </section>
+
+      {/* Shopping Experience Highlights */}
+      <section className="py-16 bg-gradient-to-b from-background to-muted/20">
+        <div className="container">
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <h2 className="text-3xl font-bold">Why Shop With Us</h2>
+            <p className="text-muted-foreground mt-2 max-w-lg mx-auto">
+              Experience shopping reimagined with our unique approach to online retail
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Interactive Shopping",
+                description: "Explore products in a new dimension with our interactive showcase",
+                icon: "🔍",
+              },
+              {
+                title: "Smart Filters",
+                description: "Find exactly what you need with our intuitive filtering system",
+                icon: "🧠",
+              },
+              {
+                title: "Exclusive Deals",
+                description: "Get access to members-only discounts and early bird offers",
+                icon: "🏷️",
+              },
+              {
+                title: "Seamless Experience",
+                description: "Enjoy a smooth shopping journey from browsing to checkout",
+                icon: "✨",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                className="bg-card border rounded-lg p-6 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+              >
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
