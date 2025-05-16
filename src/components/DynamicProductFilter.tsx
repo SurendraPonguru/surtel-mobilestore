@@ -2,9 +2,8 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { categories, getProductsByCategory, Product, products, getProductsOnSale, getFeaturedProducts, searchProducts } from "@/data/products";
+import { getProductsByCategory, Product, products, getProductsOnSale, getFeaturedProducts, searchProducts } from "@/data/products";
 import ProductGrid from "@/components/ProductGrid";
-import CategoryFilter from "@/components/CategoryFilter";
 import SearchForm from "@/components/SearchForm";
 import ProductFilterDrawer from "@/components/ProductFilterDrawer";
 import CommandSearch from "@/components/CommandSearch";
@@ -17,7 +16,6 @@ const DynamicProductFilter = () => {
   const [currency, setCurrency] = useState<"USD" | "INR">("USD");
   
   useEffect(() => {
-    const category = searchParams.get("category");
     const searchQuery = searchParams.get("search");
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
@@ -40,16 +38,6 @@ const DynamicProductFilter = () => {
       if (searchQuery) {
         result = searchProducts(searchQuery);
         setTitle(`Search results for "${searchQuery}"`);
-      } else if (category === "sale") {
-        result = getProductsOnSale();
-        setTitle("On Sale");
-      } else if (category === "featured") {
-        result = getFeaturedProducts();
-        setTitle("Featured Products");
-      } else if (category) {
-        result = getProductsByCategory(category);
-        const categoryItem = categories.find(c => c.id === category);
-        setTitle(categoryItem ? categoryItem.name : "Products");
       } else {
         result = products;
         setTitle("All Products");
@@ -115,7 +103,6 @@ const DynamicProductFilter = () => {
             <CommandSearch />
             <ProductFilterDrawer />
           </div>
-          <CategoryFilter className="order-first md:order-last" />
         </div>
       </motion.div>
       

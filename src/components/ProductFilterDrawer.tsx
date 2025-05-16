@@ -19,7 +19,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel
 } from "@/components/ui/dropdown-menu";
-import { categories } from "@/data/products";
 import { cn } from "@/lib/utils";
 import { 
   Tooltip, 
@@ -37,9 +36,6 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000]);
-  const [selectedCategory, setSelectedCategory] = useState(
-    searchParams.get("category") || "all"
-  );
   const [selectedRating, setSelectedRating] = useState(
     searchParams.get("rating") || ""
   );
@@ -50,10 +46,6 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
   
   const applyFilters = () => {
     const params = new URLSearchParams();
-    
-    if (selectedCategory !== "all") {
-      params.set("category", selectedCategory);
-    }
     
     if (priceRange[0] > 0 || priceRange[1] < 1000) {
       params.set("minPrice", priceRange[0].toString());
@@ -84,7 +76,6 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
   
   const clearFilters = () => {
     setPriceRange([0, 1000]);
-    setSelectedCategory("all");
     setSelectedRating("");
     setSortBy("");
     setCurrency("USD");
@@ -101,7 +92,6 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
   };
 
   const activeFiltersCount = [
-    selectedCategory !== "all",
     priceRange[0] > 0 || priceRange[1] < 1000,
     !!selectedRating,
     !!sortBy,
@@ -136,29 +126,7 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
               </div>
             </div>
             
-            <div className="p-4 max-h-[60vh] overflow-auto space-y-5">
-              <div>
-                <h3 className="mb-3 text-sm font-medium">Categories</h3>
-                <RadioGroup 
-                  value={selectedCategory}
-                  onValueChange={setSelectedCategory}
-                >
-                  {categories.map((category) => (
-                    <div 
-                      key={category.id} 
-                      className="flex items-center space-x-2 py-1"
-                    >
-                      <RadioGroupItem value={category.id} id={`category-${category.id}`} />
-                      <label htmlFor={`category-${category.id}`} className="text-sm">
-                        {category.name}
-                      </label>
-                    </div>
-                  ))}
-                </RadioGroup>
-              </div>
-              
-              <Separator />
-              
+            <div className="p-4 max-h-[60vh] overflow-auto space-y-5">              
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-medium">Price Range</h3>
