@@ -1,22 +1,33 @@
 
 import { useState } from "react";
-import { Filter, Sliders, X, Check } from "lucide-react";
+import { Filter, Sliders, X, Check, ArrowUpDown, SortAsc, SortDesc, Indian } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel
+} from "@/components/ui/dropdown-menu";
 import { categories } from "@/data/products";
 import { cn } from "@/lib/utils";
+import { 
+  Tooltip, 
+  TooltipContent, 
+  TooltipTrigger, 
+  TooltipProvider 
+} from "@/components/ui/tooltip";
+import { Toggle } from "@/components/ui/toggle";
 
 const ProductFilterDrawer = ({ className }: { className?: string }) => {
   const navigate = useNavigate();
@@ -24,11 +35,18 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
   const searchParams = new URLSearchParams(location.search);
   
   const [open, setOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || "all"
   );
-  const [selectedRating, setSelectedRating] = useState("");
+  const [selectedRating, setSelectedRating] = useState(
+    searchParams.get("rating") || ""
+  );
+  const [sortBy, setSortBy] = useState(searchParams.get("sort") || "");
+  const [currency, setCurrency] = useState<"USD" | "INR">(
+    (searchParams.get("currency") as "USD" | "INR") || "USD"
+  );
   
   const applyFilters = () => {
     const params = new URLSearchParams();
@@ -46,6 +64,14 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
       params.set("rating", selectedRating);
     }
     
+    if (sortBy) {
+      params.set("sort", sortBy);
+    }
+    
+    if (currency !== "USD") {
+      params.set("currency", currency);
+    }
+    
     const search = searchParams.get("search");
     if (search) {
       params.set("search", search);
@@ -53,39 +79,64 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
     
     navigate(`/products?${params.toString()}`);
     setOpen(false);
+    setFilterOpen(false);
   };
   
   const clearFilters = () => {
     setPriceRange([0, 1000]);
     setSelectedCategory("all");
     setSelectedRating("");
+    setSortBy("");
+    setCurrency("USD");
+    
+    const params = new URLSearchParams();
+    const search = searchParams.get("search");
+    if (search) {
+      params.set("search", search);
+    }
+    
+    navigate(`/products?${params.toString()}`);
+    setOpen(false);
+    setFilterOpen(false);
   };
+
+  const activeFiltersCount = [
+    selectedCategory !== "all",
+    priceRange[0] > 0 || priceRange[1] < 1000,
+    !!selectedRating,
+    !!sortBy,
+    currency !== "USD"
+  ].filter(Boolean).length;
   
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerTrigger asChild>
-        <Button 
-          variant="outline" 
-          size="icon"
-          className={cn("relative", className)}
-        >
-          <Sliders className="h-4 w-4" />
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
-          <DrawerHeader>
-            <DrawerTitle className="flex items-center justify-between">
-              <span>Filter Products</span>
-              <DrawerClose asChild>
-                <Button variant="ghost" size="icon">
-                  <X className="h-4 w-4" />
+    <div className={className}>
+      <div className="flex items-center gap-2">
+        <Popover open={filterOpen} onOpenChange={setFilterOpen}>
+          <PopoverTrigger asChild>
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="relative"
+            >
+              <Filter className="h-4 w-4" />
+              {activeFiltersCount > 0 && (
+                <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-medium text-primary-foreground flex items-center justify-center">
+                  {activeFiltersCount}
+                </span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 p-0" align="start">
+            <div className="p-4 border-b">
+              <div className="flex items-center justify-between">
+                <h3 className="font-medium">Filters</h3>
+                <Button variant="ghost" size="sm" onClick={clearFilters}>
+                  Clear all
                 </Button>
-              </DrawerClose>
-            </DrawerTitle>
-          </DrawerHeader>
-          <div className="px-4 pb-4">
-            <div className="space-y-5">
+              </div>
+            </div>
+            
+            <div className="p-4 max-h-[60vh] overflow-auto space-y-5">
               <div>
                 <h3 className="mb-3 text-sm font-medium">Categories</h3>
                 <RadioGroup 
@@ -153,28 +204,107 @@ const ProductFilterDrawer = ({ className }: { className?: string }) => {
                   ))}
                 </RadioGroup>
               </div>
+
+              <Separator />
+              
+              <div>
+                <h3 className="mb-3 text-sm font-medium">Currency</h3>
+                <div className="flex gap-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Toggle
+                          pressed={currency === "USD"}
+                          onPressedChange={() => setCurrency("USD")}
+                          aria-label="Toggle USD currency"
+                        >
+                          <span className="flex items-center">$</span>
+                        </Toggle>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>US Dollar</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Toggle
+                          pressed={currency === "INR"}
+                          onPressedChange={() => setCurrency("INR")}
+                          aria-label="Toggle INR currency"
+                        >
+                          <span className="flex items-center">₹</span>
+                        </Toggle>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Indian Rupee</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </div>
             </div>
-          </div>
-          <DrawerFooter>
-            <div className="flex gap-3">
+            
+            <div className="p-4 border-t">
               <Button 
-                variant="outline" 
-                className="flex-1"
-                onClick={clearFilters}
-              >
-                Clear All
-              </Button>
-              <Button 
-                className="flex-1"
+                className="w-full"
                 onClick={applyFilters}
               >
                 Apply Filters
               </Button>
             </div>
-          </DrawerFooter>
-        </div>
-      </DrawerContent>
-    </Drawer>
+          </PopoverContent>
+        </Popover>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="relative"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Sort By</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              onClick={() => {
+                setSortBy("price_asc");
+                applyFilters();
+              }}
+              className={cn(sortBy === "price_asc" && "bg-accent text-accent-foreground")}
+            >
+              <SortAsc className="mr-2 h-4 w-4" /> 
+              Price: Low to High
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => {
+                setSortBy("price_desc");
+                applyFilters();
+              }}
+              className={cn(sortBy === "price_desc" && "bg-accent text-accent-foreground")}
+            >
+              <SortDesc className="mr-2 h-4 w-4" /> 
+              Price: High to Low
+            </DropdownMenuItem>
+            <DropdownMenuItem 
+              onClick={() => {
+                setSortBy("rating");
+                applyFilters();
+              }}
+              className={cn(sortBy === "rating" && "bg-accent text-accent-foreground")}
+            >
+              <span className="mr-2">★</span> 
+              Best Rating
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </div>
   );
 };
 

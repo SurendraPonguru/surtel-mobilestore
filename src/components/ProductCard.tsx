@@ -8,9 +8,13 @@ import { Product } from "@/data/products";
 
 interface ProductCardProps {
   product: Product;
+  currency?: "USD" | "INR";
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+// Exchange rate for USD to INR (approximate)
+const USD_TO_INR = 75;
+
+const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
   const isWishlisted = isInWishlist(product.id);
@@ -19,31 +23,34 @@ const ProductCard = ({ product }: ProductCardProps) => {
     ? product.price - (product.price * product.discount / 100)
     : product.price;
   
+  // Convert price based on selected currency
+  const displayPrice = currency === "INR" 
+    ? discountedPrice * USD_TO_INR 
+    : discountedPrice;
+  
+  const originalDisplayPrice = currency === "INR"
+    ? product.price * USD_TO_INR
+    : product.price;
+    
+  const currencySymbol = currency === "INR" ? "₹" : "$";
+  
   return (
-    <div className="product-card group animate-fade-in">
-      <div className="product-card-image-container">
+    <div className="product-card group rounded-lg border border-border bg-card shadow-sm transition-all hover:shadow-md">
+      <div className="relative overflow-hidden rounded-t-lg">
         <Link to={`/products/${product.id}`}>
           <img
             src={product.image}
             alt={product.title}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
         
-        {product.onSale && (
-          <div className="product-card-badge">
-            {product.discount}% OFF
-          </div>
-        )}
-        
         <button
-          className={`product-card-wishlist ${
-            isWishlisted ? "text-red-500" : ""
-          }`}
+          className="absolute right-2 top-2 rounded-full bg-background/80 p-2 backdrop-blur-sm transition-colors hover:bg-background"
           onClick={() => toggleWishlist(product.id, product.title)}
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
         >
-          <Heart className="h-4 w-4" fill={isWishlisted ? "currentColor" : "none"} />
+          <Heart className="h-4 w-4" fill={isWishlisted ? "currentColor" : "none"} stroke={isWishlisted ? "currentColor" : "currentColor"} />
         </button>
       </div>
       
@@ -58,11 +65,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         
         <div className="mb-4 flex items-center">
           <span className="font-medium">
-            ${discountedPrice.toFixed(2)}
+            {currencySymbol}{displayPrice.toFixed(2)}
           </span>
           {product.onSale && (
             <span className="ml-2 text-sm text-muted-foreground line-through">
-              ${product.price.toFixed(2)}
+              {currencySymbol}{originalDisplayPrice.toFixed(2)}
             </span>
           )}
         </div>

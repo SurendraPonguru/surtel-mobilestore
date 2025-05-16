@@ -6,11 +6,13 @@ import ProductCard from "./ProductCard";
 interface ProductGridProps {
   products: Product[];
   emptyMessage?: string;
+  currency?: "USD" | "INR";
 }
 
 const ProductGrid = ({
   products,
   emptyMessage = "No products found.",
+  currency = "USD"
 }: ProductGridProps) => {
   if (products.length === 0) {
     return (
@@ -34,7 +36,7 @@ const ProductGrid = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: index * 0.05 }}
         >
-          <ProductCard product={product} />
+          <ProductCard product={product} currency={currency} />
         </motion.div>
       ))}
     </div>

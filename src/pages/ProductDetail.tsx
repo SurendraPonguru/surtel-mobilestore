@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
 import { getProductById, Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
@@ -8,17 +8,29 @@ import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from "sonner";
 
+// Exchange rate for USD to INR (approximate)
+const USD_TO_INR = 75;
+
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
   
   useEffect(() => {
     setIsLoading(true);
+    
+    const currencyParam = searchParams.get("currency") as "USD" | "INR" | null;
+    if (currencyParam) {
+      setCurrency(currencyParam);
+    } else {
+      setCurrency("USD");
+    }
     
     // Simulate API call
     setTimeout(() => {
@@ -36,7 +48,7 @@ const ProductDetail = () => {
     
     // Scroll to top when product changes
     window.scrollTo(0, 0);
-  }, [id, navigate]);
+  }, [id, navigate, searchParams]);
   
   const handleAddToCart = () => {
     if (product) {
@@ -82,6 +94,17 @@ const ProductDetail = () => {
   const discountedPrice = product.onSale && product.discount 
     ? product.price - (product.price * product.discount / 100)
     : product.price;
+  
+  // Convert price based on selected currency
+  const displayPrice = currency === "INR" 
+    ? discountedPrice * USD_TO_INR 
+    : discountedPrice;
+  
+  const originalDisplayPrice = currency === "INR"
+    ? product.price * USD_TO_INR
+    : product.price;
+    
+  const currencySymbol = currency === "INR" ? "₹" : "$";
   
   const isWishlisted = isInWishlist(product.id);
   
@@ -133,11 +156,11 @@ const ProductDetail = () => {
           
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-bold">
-              ${discountedPrice.toFixed(2)}
+              {currencySymbol}{displayPrice.toFixed(2)}
             </span>
             {product.onSale && (
               <span className="text-lg text-muted-foreground line-through">
-                ${product.price.toFixed(2)}
+                {currencySymbol}{originalDisplayPrice.toFixed(2)}
               </span>
             )}
           </div>

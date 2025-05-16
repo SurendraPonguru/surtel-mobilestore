@@ -14,6 +14,7 @@ const DynamicProductFilter = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [title, setTitle] = useState("All Products");
+  const [currency, setCurrency] = useState<"USD" | "INR">("USD");
   
   useEffect(() => {
     const category = searchParams.get("category");
@@ -21,6 +22,14 @@ const DynamicProductFilter = () => {
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
     const rating = searchParams.get("rating");
+    const sort = searchParams.get("sort");
+    const currencyParam = searchParams.get("currency") as "USD" | "INR" | null;
+    
+    if (currencyParam) {
+      setCurrency(currencyParam);
+    } else {
+      setCurrency("USD");
+    }
     
     setIsLoading(true);
     
@@ -64,6 +73,25 @@ const DynamicProductFilter = () => {
       if (rating) {
         const minRating = parseFloat(rating);
         result = result.filter(product => product.rating.rate >= minRating);
+      }
+      
+      // Apply sorting if present
+      if (sort) {
+        if (sort === "price_asc") {
+          result = [...result].sort((a, b) => {
+            const priceA = a.onSale && a.discount ? a.price - (a.price * a.discount / 100) : a.price;
+            const priceB = b.onSale && b.discount ? b.price - (b.price * b.discount / 100) : b.price;
+            return priceA - priceB;
+          });
+        } else if (sort === "price_desc") {
+          result = [...result].sort((a, b) => {
+            const priceA = a.onSale && a.discount ? a.price - (a.price * a.discount / 100) : a.price;
+            const priceB = b.onSale && b.discount ? b.price - (b.price * b.discount / 100) : b.price;
+            return priceB - priceA;
+          });
+        } else if (sort === "rating") {
+          result = [...result].sort((a, b) => b.rating.rate - a.rating.rate);
+        }
       }
       
       setFilteredProducts(result);
@@ -119,6 +147,7 @@ const DynamicProductFilter = () => {
                   ? "No products match your search. Try a different term."
                   : "No products found with the selected filters."
               }
+              currency={currency}
             />
           )}
         </motion.div>
