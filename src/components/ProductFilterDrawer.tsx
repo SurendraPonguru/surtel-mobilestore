@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Filter, Sliders, X, Check, ArrowUpDown, SortAsc, SortDesc, Indian } from "lucide-react";
+import { Filter, Sliders, X, Check, ArrowUpDown, SortAsc, SortDesc, IndianRupee } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
   Popover,
