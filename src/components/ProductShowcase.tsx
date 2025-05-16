@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import { getFeaturedProducts, Product } from "@/data/products";
+import { useEmblaCarousel } from "embla-carousel-react";
 
 const ProductShowcase = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const ProductShowcase = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [emblaRef, emblaApi] = useEmblaCarousel();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -30,6 +32,20 @@ const ProductShowcase = () => {
     
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (emblaApi) {
+      const onSelect = () => {
+        setActiveIndex(emblaApi.selectedScrollSnap());
+      };
+
+      emblaApi.on("select", onSelect);
+      return () => {
+        emblaApi.off("select", onSelect);
+      };
+    }
+    return () => {};
+  }, [emblaApi]);
 
   const handleAddToCart = (product: Product) => {
     addToCart({
@@ -51,10 +67,8 @@ const ProductShowcase = () => {
   return (
     <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary/5 to-primary/10">
       <Carousel
+        ref={emblaRef}
         className="w-full"
-        onSelect={(api) => {
-          setActiveIndex(api?.selectedScrollSnap() || 0);
-        }}
       >
         <CarouselContent>
           {products.map((product, index) => (
