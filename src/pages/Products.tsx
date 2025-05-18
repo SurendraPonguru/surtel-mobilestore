@@ -13,7 +13,7 @@ const Products = () => {
         <div className="mb-6">
           <h1 className="text-3xl font-bold">Top Mobile Brands</h1>
           <p className="text-muted-foreground mt-2">
-            Browse our selection of premium smartphones from the world's leading manufacturers
+            Browse our selection of premium smartphones from SurTel's curated collection
           </p>
         </div>
         <DynamicProductFilter />

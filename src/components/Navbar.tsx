@@ -16,7 +16,12 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6 md:gap-10">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold">ShopFront</span>
+            <img 
+              src="/lovable-uploads/96d5b3e8-a2e9-4e56-a3ee-a71a3fe6ff46.png" 
+              alt="SurTel Logo" 
+              className="h-8 w-auto" 
+            />
+            <span className="text-xl font-bold">SurTel</span>
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link

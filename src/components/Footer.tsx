@@ -9,9 +9,16 @@ const Footer = () => {
       <div className="container py-8 md:py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div>
-            <h3 className="text-lg font-medium">ShopFront</h3>
+            <div className="flex items-center gap-2 mb-2">
+              <img 
+                src="/lovable-uploads/96d5b3e8-a2e9-4e56-a3ee-a71a3fe6ff46.png" 
+                alt="SurTel Logo" 
+                className="h-6 w-auto" 
+              />
+              <h3 className="text-lg font-medium">SurTel</h3>
+            </div>
             <p className="mt-2 text-sm text-muted-foreground">
-              A modern e-commerce frontend built with React, TypeScript, and Tailwind CSS.
+              A modern mobile phone store featuring premium smartphones from top global brands.
             </p>
           </div>
           
@@ -40,18 +47,18 @@ const Footer = () => {
             <h3 className="text-sm font-medium">Categories</h3>
             <ul className="mt-2 space-y-2 text-sm">
               <li>
-                <Link to="/products?category=clothing" className="text-muted-foreground hover:text-foreground">
-                  Clothing
+                <Link to="/products?brand=Apple" className="text-muted-foreground hover:text-foreground">
+                  Apple
                 </Link>
               </li>
               <li>
-                <Link to="/products?category=electronics" className="text-muted-foreground hover:text-foreground">
-                  Electronics
+                <Link to="/products?brand=Samsung" className="text-muted-foreground hover:text-foreground">
+                  Samsung
                 </Link>
               </li>
               <li>
-                <Link to="/products?category=home" className="text-muted-foreground hover:text-foreground">
-                  Home & Decor
+                <Link to="/products?brand=Xiaomi" className="text-muted-foreground hover:text-foreground">
+                  Xiaomi
                 </Link>
               </li>
             </ul>
@@ -81,7 +88,7 @@ const Footer = () => {
         
         <div className="mt-8 border-t pt-6">
           <p className="text-center text-xs text-muted-foreground">
-            &copy; {currentYear} ShopFront. All rights reserved. This is a demo project.
+            &copy; {currentYear} SurTel. All rights reserved.
           </p>
         </div>
       </div>
