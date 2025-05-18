@@ -42,6 +42,11 @@ const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
             src={product.image}
             alt={product.title}
             className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+              console.log("Image failed to load:", product.image);
+            }}
           />
         </Link>
         

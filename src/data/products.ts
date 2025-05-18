@@ -44,7 +44,8 @@ export const products: Product[] = [
       "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1580910051074-3eb694886505?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ],
     rating: {
       rate: 4.9,
@@ -94,7 +95,10 @@ export const products: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1592286927505-1def25115d1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560671563-7a75c5fccef9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1534462323700-1217c1fa0b69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ],
     rating: {
       rate: 4.7,
@@ -139,7 +143,9 @@ export const products: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1529653762956-b0a27278529c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1565772838667-2a1367ba22e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1606293459209-958d5c67c84f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1606293459209-958d5c67c84f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1543582890-2e394a6a98e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1591815302525-756a9bcc3425?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ],
     rating: {
       rate: 4.6,
@@ -181,7 +187,9 @@ export const products: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1609252924198-d3d798a3b8d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1544866092-1935c5ef2a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1544866092-1935c5ef2a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ],
     rating: {
       rate: 4.3,
@@ -225,7 +233,10 @@ export const products: Product[] = [
     images: [
       "https://images.unsplash.com/photo-1595941069915-4ebc5b29532f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1623126908029-58cb08a2bddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1560671563-7a75c5fccef9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "https://images.unsplash.com/photo-1560671563-7a75c5fccef9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1533228100845-08145b01de14?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1536618621839-12e5193f88a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ],
     rating: {
       rate: 4.8,
@@ -255,6 +266,58 @@ export const products: Product[] = [
         comment: "Amazing for gaming but the battery drains quickly at high settings.",
         date: "2023-04-15",
         rating: 4
+      }
+    ]
+  },
+  {
+    id: 25,
+    title: "XtremePro Smartphone",
+    price: 949.99,
+    description: "Professional-grade smartphone with industry-leading camera technology, exceptional display quality, and premium design.",
+    category: "electronics",
+    image: "https://images.unsplash.com/photo-1550367083-9fa5411cb4e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1550367083-9fa5411cb4e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1557244056-110c3f73a350?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1480694313141-fce5e697ee25?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566728595340-911b03f7becc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
+    rating: {
+      rate: 4.9,
+      count: 324
+    },
+    featured: true,
+    specs: {
+      processor: "Octa-core (1x3.1 GHz & 3x2.6 GHz & 4x1.9 GHz)",
+      ram: "12GB",
+      storage: "256GB",
+      camera: "Quad Camera: 108MP + 12MP + 10MP + 10MP",
+      battery: "5000mAh",
+      display: "6.8 inch Dynamic AMOLED 2X, 120Hz",
+      os: "Android 13"
+    },
+    reviews: [
+      {
+        id: 1,
+        user: "Jennifer P.",
+        comment: "The camera system is unbelievable. Takes amazing low-light photos!",
+        date: "2023-06-22",
+        rating: 5
+      },
+      {
+        id: 2,
+        user: "Michael B.",
+        comment: "Beautiful design and great performance. Battery life could be better.",
+        date: "2023-05-19",
+        rating: 4
+      },
+      {
+        id: 3,
+        user: "Laura K.",
+        comment: "Worth every penny. The display is phenomenal for watching videos.",
+        date: "2023-07-05",
+        rating: 5
       }
     ]
   }
