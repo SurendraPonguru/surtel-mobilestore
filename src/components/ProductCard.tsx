@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Heart, Star } from "lucide-react";
+import { Heart, Star, Smartphone } from "lucide-react";
 import { Button } from "./ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -66,8 +66,15 @@ const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
       </div>
       
       <div className="p-4">
-        <div className="mb-2 flex items-center justify-between">
-          <h3 className="font-medium line-clamp-1">{product.title}</h3>
+        <div className="mb-1 flex items-start justify-between">
+          <div>
+            <h3 className="font-medium line-clamp-1">{product.title}</h3>
+            {product.specs?.brand && (
+              <span className="text-xs text-muted-foreground">
+                {product.specs.brand}
+              </span>
+            )}
+          </div>
           <div className="flex items-center">
             <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
             <span className="ml-1 text-xs">{product.rating.rate}</span>
@@ -79,7 +86,7 @@ const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
           {product.specs && (
             <div className="space-y-1">
               {product.specs.display && <p>Display: {product.specs.display}</p>}
-              {product.specs.camera && <p>Camera: {product.specs.camera}</p>}
+              {product.specs.camera && <p>Camera: {product.specs.camera.split(' ')[0]}</p>}
               {product.specs.processor && <p>Processor: {product.specs.processor.split(' ')[0]}</p>}
             </div>
           )}
