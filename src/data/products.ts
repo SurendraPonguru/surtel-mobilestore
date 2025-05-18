@@ -1,3 +1,4 @@
+
 export interface Product {
   id: number;
   title: string;
@@ -5,6 +6,7 @@ export interface Product {
   description: string;
   category: string;
   image: string;
+  images?: string[]; // Additional images for product view
   rating: {
     rate: number;
     count: number;
@@ -12,163 +14,25 @@ export interface Product {
   featured?: boolean;
   onSale?: boolean;
   discount?: number;
+  specs?: {
+    processor?: string;
+    ram?: string;
+    storage?: string;
+    camera?: string;
+    battery?: string;
+    display?: string;
+    os?: string;
+  };
+  reviews?: {
+    id: number;
+    user: string;
+    comment: string;
+    date: string;
+    rating: number;
+  }[];
 }
 
 export const products: Product[] = [
-  {
-    id: 1,
-    title: "Modern Minimalist Backpack",
-    price: 109.95,
-    description: "Your perfect pack for everyday use and walks in the city. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday essentials in the main compartment, and keep small items organized in the front pocket.",
-    category: "bags",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80",
-    rating: {
-      rate: 4.8,
-      count: 421
-    },
-    featured: true
-  },
-  {
-    id: 2,
-    title: "Premium Slim Fit T-Shirt",
-    price: 29.95,
-    description: "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. The perfect casual shirt for everyday wear.",
-    category: "clothing",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=880&q=80",
-    rating: {
-      rate: 4.5,
-      count: 290
-    },
-    onSale: true,
-    discount: 20
-  },
-  {
-    id: 3,
-    title: "Cotton Casual Jacket",
-    price: 89.95,
-    description: "Great outerwear jacket for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors.",
-    category: "clothing",
-    image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=736&q=80",
-    rating: {
-      rate: 4.2,
-      count: 187
-    }
-  },
-  {
-    id: 4,
-    title: "Handcrafted Ceramic Mug",
-    price: 24.99,
-    description: "The premium ceramic mug is designed to be durable and long-lasting. It's perfect for your morning coffee, afternoon tea, or any hot beverage of choice.",
-    category: "home",
-    image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-    rating: {
-      rate: 4.7,
-      count: 162
-    }
-  },
-  {
-    id: 5,
-    title: "Minimalist Gold Bracelet",
-    price: 59.99,
-    description: "From our Legends Collection, the Classic Gold Bracelet for her features a minimal design that adds a touch of elegance to any outfit.",
-    category: "jewelry",
-    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-    rating: {
-      rate: 4.9,
-      count: 214
-    },
-    featured: true
-  },
-  {
-    id: 6,
-    title: "Leather Crossbody Bag",
-    price: 129.95,
-    description: "100% high quality leather construction featuring a spacious main compartment, multiple interior pockets, and adjustable shoulder strap.",
-    category: "bags",
-    image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&auto=format&fit=crop&w=876&q=80",
-    rating: {
-      rate: 4.6,
-      count: 352
-    },
-    onSale: true,
-    discount: 15
-  },
-  {
-    id: 7,
-    title: "Smart Digital Watch",
-    price: 199.95,
-    description: "Track your fitness goals, receive notifications, and stay connected on the go with this premium smartwatch featuring health monitoring and long battery life.",
-    category: "electronics",
-    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=764&q=80",
-    rating: {
-      rate: 4.7,
-      count: 562
-    },
-    featured: true
-  },
-  {
-    id: 8,
-    title: "Modern Wall Clock",
-    price: 49.95,
-    description: "Add a touch of elegance to your home with this modern, minimalist wall clock featuring a silent quartz movement and clean design.",
-    category: "home",
-    image: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-    rating: {
-      rate: 4.4,
-      count: 312
-    }
-  },
-  {
-    id: 9,
-    title: "Wireless Earbuds",
-    price: 129.99,
-    description: "Experience crystal clear sound with these premium wireless earbuds featuring noise cancellation, long battery life, and comfortable fit.",
-    category: "electronics",
-    image: "https://images.unsplash.com/photo-1606741965730-8616bbd577f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80",
-    rating: {
-      rate: 4.8,
-      count: 412
-    }
-  },
-  {
-    id: 10,
-    title: "Contemporary Desk Lamp",
-    price: 79.95,
-    description: "This adjustable LED desk lamp provides perfect lighting for work or reading, with multiple brightness levels and a modern design.",
-    category: "home",
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-    rating: {
-      rate: 4.3,
-      count: 186
-    },
-    onSale: true,
-    discount: 25
-  },
-  {
-    id: 11,
-    title: "Linen Summer Dress",
-    price: 69.95,
-    description: "A lightweight, breathable linen dress perfect for warm weather, featuring a comfortable fit and timeless design.",
-    category: "clothing",
-    image: "https://images.unsplash.com/photo-1612336307429-8a898d10e223?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80",
-    rating: {
-      rate: 4.5,
-      count: 267
-    }
-  },
-  {
-    id: 12,
-    title: "Leather Wallet",
-    price: 45.99,
-    description: "Crafted from genuine leather, this slim wallet features multiple card slots, a bill compartment, and RFID blocking technology.",
-    category: "accessories",
-    image: "https://images.unsplash.com/photo-1627123424574-724758594e93?ixlib=rb-4.0.3&auto=format&fit=crop&w=1374&q=80",
-    rating: {
-      rate: 4.6,
-      count: 329
-    },
-    featured: true
-  },
   {
     id: 13,
     title: "Premium Smartphone Pro",
@@ -176,163 +40,229 @@ export const products: Product[] = [
     description: "The latest smartphone with an edge-to-edge display, powerful camera system, long battery life, and blazing-fast processor. Perfect for photography, gaming, and productivity.",
     category: "electronics",
     image: "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1580910051074-3eb694886505?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
     rating: {
       rate: 4.9,
       count: 487
     },
-    featured: true
-  },
-  {
-    id: 14,
-    title: "Ultra-thin Laptop",
-    price: 1299.99,
-    description: "Professional-grade laptop featuring a stunning display, all-day battery life, and powerful performance in an incredibly thin and light package.",
-    category: "electronics",
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.8,
-      count: 352
+    featured: true,
+    specs: {
+      processor: "Octa-core (1x3.0 GHz & 3x2.4 GHz & 4x1.8 GHz)",
+      ram: "8GB",
+      storage: "256GB",
+      camera: "Triple Camera: 48MP + 12MP + 8MP",
+      battery: "4500mAh",
+      display: "6.7 inch AMOLED, 120Hz",
+      os: "Android 13"
     },
-    featured: true
+    reviews: [
+      {
+        id: 1,
+        user: "John D.",
+        comment: "Amazing camera quality and battery life. The display is gorgeous!",
+        date: "2023-05-12",
+        rating: 5
+      },
+      {
+        id: 2,
+        user: "Sarah M.",
+        comment: "Great phone but a bit expensive. The processor is super fast.",
+        date: "2023-04-28",
+        rating: 4
+      },
+      {
+        id: 3,
+        user: "Mike T.",
+        comment: "Best smartphone I've ever owned. The battery lasts all day!",
+        date: "2023-06-03",
+        rating: 5
+      }
+    ]
   },
   {
-    id: 15,
-    title: "Wireless Noise-Cancelling Headphones",
-    price: 249.95,
-    description: "Premium wireless headphones with industry-leading noise cancellation, incredible sound quality, and comfortable design for all-day listening.",
+    id: 7,
+    title: "UltraPhone 5G",
+    price: 799.95,
+    description: "Experience lightning-fast 5G connectivity with this premium smartphone featuring AI-powered cameras and an all-day battery life.",
     category: "electronics",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1592286927505-1def25115d1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1592286927505-1def25115d1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1585060544812-6b45742d762f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
     rating: {
       rate: 4.7,
-      count: 298
+      count: 352
     },
+    featured: true,
     onSale: true,
-    discount: 15
+    discount: 15,
+    specs: {
+      processor: "Octa-core (2x2.8 GHz & 6x1.8 GHz)",
+      ram: "6GB",
+      storage: "128GB",
+      camera: "Quad Camera: 64MP + 12MP + 5MP + 5MP",
+      battery: "5000mAh",
+      display: "6.5 inch LCD, 90Hz",
+      os: "Android 12"
+    },
+    reviews: [
+      {
+        id: 1,
+        user: "Emma L.",
+        comment: "Great phone for the price. Battery life is excellent!",
+        date: "2023-03-15",
+        rating: 5
+      },
+      {
+        id: 2,
+        user: "Robert K.",
+        comment: "Camera could be better but overall good performance.",
+        date: "2023-02-22",
+        rating: 4
+      }
+    ]
   },
   {
-    id: 16,
-    title: "Smart LED TV - 55 inch",
-    price: 649.99,
-    description: "4K Ultra HD Smart TV with vibrant colors, crystal clear picture quality, and built-in streaming services for an immersive entertainment experience.",
+    id: 9,
+    title: "Compact Elite Phone",
+    price: 699.99,
+    description: "A compact yet powerful smartphone with premium features including an exceptional camera system and fast charging capability.",
     category: "electronics",
-    image: "https://images.unsplash.com/photo-1593784991095-a205069533cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1529653762956-b0a27278529c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1529653762956-b0a27278529c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1565772838667-2a1367ba22e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1606293459209-958d5c67c84f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
     rating: {
       rate: 4.6,
-      count: 214
-    }
-  },
-  {
-    id: 17,
-    title: "Robot Vacuum Cleaner",
-    price: 299.95,
-    description: "Smart robot vacuum with advanced mapping, powerful suction, and app control to keep your floors clean without lifting a finger.",
-    category: "household",
-    image: "https://images.unsplash.com/photo-1629672845350-ecbaefe5de3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.5,
-      count: 176
+      count: 298
     },
-    onSale: true,
-    discount: 20
-  },
-  {
-    id: 18,
-    title: "Smart Coffee Maker",
-    price: 129.99,
-    description: "WiFi-enabled coffee maker that lets you brew the perfect cup from your smartphone. Schedule brewing times and customize your coffee strength.",
-    category: "household",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.4,
-      count: 142
-    }
+    specs: {
+      processor: "Hexa-core (2x2.65 GHz & 4x1.8 GHz)",
+      ram: "4GB",
+      storage: "64GB",
+      camera: "Dual Camera: 12MP + 8MP",
+      battery: "3800mAh",
+      display: "5.8 inch OLED, 60Hz",
+      os: "Android 12"
+    },
+    reviews: [
+      {
+        id: 1,
+        user: "Chris P.",
+        comment: "Perfect size and excellent build quality. Not too big, not too small.",
+        date: "2023-01-18",
+        rating: 5
+      },
+      {
+        id: 2,
+        user: "Lisa N.",
+        comment: "Good performance but battery life could be better.",
+        date: "2023-02-05",
+        rating: 4
+      }
+    ]
   },
   {
     id: 19,
-    title: "Tablet Pro with Stylus",
-    price: 549.99,
-    description: "Powerful tablet with a high-resolution display, responsive stylus support, and all-day battery life for creative professionals and students.",
+    title: "Budget Friendly Phone",
+    price: 299.99,
+    description: "Affordable smartphone with all the essential features you need including a capable camera, decent performance, and good battery life.",
     category: "electronics",
-    image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1605236453806-6ff36851218e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1609252924198-d3d798a3b8d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1544866092-1935c5ef2a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
     rating: {
-      rate: 4.7,
-      count: 231
-    }
-  },
-  {
-    id: 20,
-    title: "Smart Home Security Camera",
-    price: 89.99,
-    description: "HD security camera with night vision, motion detection alerts, and two-way audio. Monitor your home from anywhere using the smartphone app.",
-    category: "household",
-    image: "https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.5,
-      count: 187
-    }
-  },
-  {
-    id: 21,
-    title: "Ergonomic Office Chair",
-    price: 249.95,
-    description: "Premium office chair with adjustable lumbar support, breathable mesh back, and customizable settings for all-day comfort while working.",
-    category: "household",
-    image: "https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.6,
-      count: 193
-    }
-  },
-  {
-    id: 22,
-    title: "Gaming Console Pro",
-    price: 499.99,
-    description: "Next-generation gaming console delivering stunning graphics, lightning-fast load times, and an extensive library of games for immersive entertainment.",
-    category: "electronics",
-    image: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.9,
-      count: 432
+      rate: 4.3,
+      count: 156
     },
-    featured: true
+    onSale: true,
+    discount: 10,
+    specs: {
+      processor: "Octa-core 2.0 GHz",
+      ram: "3GB",
+      storage: "32GB",
+      camera: "Dual Camera: 13MP + 2MP",
+      battery: "4000mAh",
+      display: "6.2 inch LCD, 60Hz",
+      os: "Android 11"
+    },
+    reviews: [
+      {
+        id: 1,
+        user: "Jason T.",
+        comment: "Great value for money. Does everything I need without breaking the bank.",
+        date: "2023-04-02",
+        rating: 5
+      },
+      {
+        id: 2,
+        user: "Maria G.",
+        comment: "Good budget phone, but camera struggles in low light.",
+        date: "2023-03-15",
+        rating: 3
+      }
+    ]
   },
   {
     id: 23,
-    title: "Smart Fitness Watch",
-    price: 199.95,
-    description: "Advanced fitness tracker with heart rate monitoring, GPS, workout tracking, and smartphone notifications to help you stay connected and reach your fitness goals.",
+    title: "Gaming Smartphone Ultra",
+    price: 1099.95,
+    description: "Designed specifically for mobile gaming with a high refresh rate display, advanced cooling system, and shoulder triggers for immersive gaming experience.",
     category: "electronics",
-    image: "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1595941069915-4ebc5b29532f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1595941069915-4ebc5b29532f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1623126908029-58cb08a2bddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560671563-7a75c5fccef9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
     rating: {
-      rate: 4.7,
-      count: 287
+      rate: 4.8,
+      count: 214
     },
-    onSale: true,
-    discount: 10
-  },
-  {
-    id: 24,
-    title: "Air Purifier",
-    price: 179.99,
-    description: "HEPA air purifier that removes 99.97% of allergens, dust, and pollutants for cleaner, fresher air in your home. Ideal for allergies and asthma sufferers.",
-    category: "household",
-    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: {
-      rate: 4.6,
-      count: 163
-    }
+    featured: true,
+    specs: {
+      processor: "Octa-core (1x3.2 GHz & 3x2.8 GHz & 4x2.0 GHz)",
+      ram: "16GB",
+      storage: "512GB",
+      camera: "Triple Camera: 64MP + 16MP + 8MP",
+      battery: "6000mAh",
+      display: "6.8 inch AMOLED, 165Hz",
+      os: "Android 13"
+    },
+    reviews: [
+      {
+        id: 1,
+        user: "Alex K.",
+        comment: "Best gaming phone on the market. The shoulder triggers are a game changer!",
+        date: "2023-05-27",
+        rating: 5
+      },
+      {
+        id: 2,
+        user: "Daniel R.",
+        comment: "Amazing for gaming but the battery drains quickly at high settings.",
+        date: "2023-04-15",
+        rating: 4
+      }
+    ]
   }
 ];
 
 export const categories = [
   { id: "all", name: "All Products" },
-  { id: "bags", name: "Bags" },
-  { id: "clothing", name: "Clothing" },
-  { id: "electronics", name: "Electronics" },
-  { id: "home", name: "Home & Decor" },
-  { id: "household", name: "Household" },
-  { id: "jewelry", name: "Jewelry" },
-  { id: "accessories", name: "Accessories" }
+  { id: "electronics", name: "Electronics" }
 ];
 
 export function getProductById(id: number): Product | undefined {

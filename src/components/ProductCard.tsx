@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import { Button } from "./ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -52,15 +52,32 @@ const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
         >
           <Heart className="h-4 w-4" fill={isWishlisted ? "currentColor" : "none"} stroke={isWishlisted ? "currentColor" : "currentColor"} />
         </button>
+        
+        {product.onSale && (
+          <div className="absolute left-2 top-2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
+            {product.discount}% OFF
+          </div>
+        )}
       </div>
       
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between">
           <h3 className="font-medium line-clamp-1">{product.title}</h3>
           <div className="flex items-center">
-            <span className="text-sm">★</span>
+            <Star className="h-4 w-4 fill-yellow-500 text-yellow-500" />
             <span className="ml-1 text-xs">{product.rating.rate}</span>
           </div>
+        </div>
+        
+        {/* Mobile specs summary */}
+        <div className="mb-3 text-xs text-muted-foreground">
+          {product.specs && (
+            <div className="space-y-1">
+              {product.specs.display && <p>Display: {product.specs.display}</p>}
+              {product.specs.camera && <p>Camera: {product.specs.camera}</p>}
+              {product.specs.processor && <p>Processor: {product.specs.processor.split(' ')[0]}</p>}
+            </div>
+          )}
         </div>
         
         <div className="mb-4 flex items-center">
@@ -74,17 +91,31 @@ const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
           )}
         </div>
         
-        <Button
-          className="w-full"
-          onClick={() => addToCart({
-            id: product.id,
-            title: product.title,
-            price: discountedPrice,
-            image: product.image
-          })}
-        >
-          Add to Cart
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            className="flex-1"
+            onClick={() => addToCart({
+              id: product.id,
+              title: product.title,
+              price: discountedPrice,
+              image: product.image
+            })}
+          >
+            Add to Cart
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="icon"
+            className={isWishlisted ? "bg-primary/10" : ""}
+            onClick={() => toggleWishlist(product.id, product.title)}
+          >
+            <Heart
+              className="h-4 w-4"
+              fill={isWishlisted ? "currentColor" : "none"}
+            />
+          </Button>
+        </div>
       </div>
     </div>
   );

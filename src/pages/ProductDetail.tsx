@@ -1,12 +1,14 @@
 
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Heart, Minus, Plus, ShoppingCart } from "lucide-react";
+import { Heart, Minus, Plus, ShoppingCart, Star } from "lucide-react";
 import { getProductById, Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { toast } from "sonner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 // Exchange rate for USD to INR (approximate)
 const USD_TO_INR = 75;
@@ -19,6 +21,7 @@ const ProductDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [currency, setCurrency] = useState<"USD" | "INR">("USD");
+  const [activeTab, setActiveTab] = useState("about");
   const { addToCart } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
   
@@ -117,15 +120,39 @@ const ProductDetail = () => {
       </div>
       
       <div className="grid gap-8 md:grid-cols-2">
-        <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
-          <img
-            src={product.image}
-            alt={product.title}
-            className="h-full w-full object-cover"
-          />
-          {product.onSale && (
-            <div className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
-              {product.discount}% OFF
+        <div className="space-y-6">
+          {product.images && product.images.length > 1 ? (
+            <Carousel className="w-full">
+              <CarouselContent>
+                {product.images.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
+                      <img
+                        src={image}
+                        alt={`${product.title} view ${index + 1}`}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex items-center justify-center mt-2">
+                <CarouselPrevious className="relative transform-none translate-y-0 left-0 mr-2" />
+                <CarouselNext className="relative transform-none translate-y-0 right-0 ml-2" />
+              </div>
+            </Carousel>
+          ) : (
+            <div className="relative aspect-square rounded-lg overflow-hidden bg-muted">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="h-full w-full object-cover"
+              />
+              {product.onSale && (
+                <div className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
+                  {product.discount}% OFF
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -165,7 +192,55 @@ const ProductDetail = () => {
             )}
           </div>
           
-          <p className="text-muted-foreground">{product.description}</p>
+          <Tabs defaultValue="about" className="w-full" onValueChange={setActiveTab} value={activeTab}>
+            <TabsList className="grid grid-cols-3 w-full">
+              <TabsTrigger value="about">About</TabsTrigger>
+              <TabsTrigger value="specs">Specifications</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            </TabsList>
+            <TabsContent value="about" className="py-4">
+              <p className="text-muted-foreground">{product.description}</p>
+            </TabsContent>
+            <TabsContent value="specs" className="py-4">
+              {product.specs ? (
+                <div className="space-y-2">
+                  {Object.entries(product.specs).map(([key, value]) => (
+                    <div key={key} className="grid grid-cols-2 border-b py-2 last:border-b-0">
+                      <span className="font-medium capitalize">{key}</span>
+                      <span>{value}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">No specifications available for this product.</p>
+              )}
+            </TabsContent>
+            <TabsContent value="reviews" className="py-4">
+              {product.reviews && product.reviews.length > 0 ? (
+                <div className="space-y-4">
+                  {product.reviews.map(review => (
+                    <div key={review.id} className="border-b pb-4 last:border-b-0">
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-medium">{review.user}</h4>
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              className={`h-4 w-4 ${i < review.rating ? "fill-yellow-500 text-yellow-500" : "fill-gray-200 text-gray-200"}`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="text-sm text-muted-foreground mt-1">{review.date}</div>
+                      <p className="mt-2">{review.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">No reviews yet for this product.</p>
+              )}
+            </TabsContent>
+          </Tabs>
           
           <div className="space-y-4 pt-4">
             <div className="flex items-center">
@@ -206,18 +281,6 @@ const ProductDetail = () => {
                 />
                 {isWishlisted ? "Saved" : "Save"}
               </Button>
-            </div>
-          </div>
-          
-          <div className="border-t pt-6">
-            <div className="text-sm">
-              <span className="font-medium">Category:</span>{" "}
-              <Link
-                to={`/products?category=${product.category}`}
-                className="text-primary hover:underline"
-              >
-                {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-              </Link>
             </div>
           </div>
         </div>

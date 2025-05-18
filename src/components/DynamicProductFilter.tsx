@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { getProductsByCategory, Product, products, getProductsOnSale, getFeaturedProducts, searchProducts } from "@/data/products";
+import { getProductsByCategory, Product, products } from "@/data/products";
 import ProductGrid from "@/components/ProductGrid";
 import SearchForm from "@/components/SearchForm";
 import ProductFilterDrawer from "@/components/ProductFilterDrawer";
@@ -12,7 +12,7 @@ const DynamicProductFilter = () => {
   const [searchParams] = useSearchParams();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [title, setTitle] = useState("All Products");
+  const [title, setTitle] = useState("All Mobile Phones");
   const [currency, setCurrency] = useState<"USD" | "INR">("USD");
   
   useEffect(() => {
@@ -33,14 +33,16 @@ const DynamicProductFilter = () => {
     
     // Simulate loading delay
     const timer = setTimeout(() => {
-      let result: Product[] = [];
+      let result: Product[] = products;
       
       if (searchQuery) {
-        result = searchProducts(searchQuery);
+        result = result.filter(product => 
+          product.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          product.description.toLowerCase().includes(searchQuery.toLowerCase())
+        );
         setTitle(`Search results for "${searchQuery}"`);
       } else {
-        result = products;
-        setTitle("All Products");
+        setTitle("All Mobile Phones");
       }
       
       // Apply price filter if present
@@ -131,8 +133,8 @@ const DynamicProductFilter = () => {
               products={filteredProducts}
               emptyMessage={
                 searchParams.toString().includes("search")
-                  ? "No products match your search. Try a different term."
-                  : "No products found with the selected filters."
+                  ? "No mobile phones match your search. Try a different term."
+                  : "No mobile phones found with the selected filters."
               }
               currency={currency}
             />
