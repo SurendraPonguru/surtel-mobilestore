@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Heart, Star, Smartphone } from "lucide-react";
+import { Heart, Star, Smartphone, Image } from "lucide-react";
 import { Button } from "./ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
@@ -44,8 +44,9 @@ const ProductCard = ({ product, currency = "USD" }: ProductCardProps) => {
             className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = "https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-              console.log("Image failed to load:", product.image);
+              target.src = "/lovable-uploads/96d5b3e8-a2e9-4e56-a3ee-a71a3fe6ff46.png";
+              target.className = "h-64 w-full object-contain p-8 bg-background/80 transition-transform duration-300 group-hover:scale-105";
+              console.log("Image failed to load, displaying SurTel logo instead:", product.image);
             }}
           />
         </Link>

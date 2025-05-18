@@ -111,6 +111,13 @@ const ProductDetail = () => {
   
   const isWishlisted = isInWishlist(product.id);
   
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    target.src = "/lovable-uploads/96d5b3e8-a2e9-4e56-a3ee-a71a3fe6ff46.png";
+    target.className = "h-full w-full object-contain p-8 bg-background/80";
+    console.log("Product image failed to load, displaying SurTel logo instead");
+  };
+  
   return (
     <div className="container py-8 md:py-16 animate-fade-in">
       <div className="mb-4">
@@ -131,6 +138,7 @@ const ProductDetail = () => {
                         src={image}
                         alt={`${product.title} view ${index + 1}`}
                         className="h-full w-full object-cover"
+                        onError={handleImageError}
                       />
                     </div>
                   </CarouselItem>
@@ -147,6 +155,7 @@ const ProductDetail = () => {
                 src={product.image}
                 alt={product.title}
                 className="h-full w-full object-cover"
+                onError={handleImageError}
               />
               {product.onSale && (
                 <div className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-sm font-medium text-primary-foreground">
